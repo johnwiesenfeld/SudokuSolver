@@ -12,17 +12,69 @@ public class Sudoku{
 		{
 			for(int j = 0; j < 9; j++)
 			{
-				board[i][j] = new cell();
+				board[i][j] = new cell(0);
 			}
 		}
 	}
 	public Sudoku(BufferedReader reader) throws IOException, Exception
 	{
-		
+		board = new cell[9][9];
+		String line;
+		int value;
+		for(int i = 0; i < 9; i++)
+		{
+			line = reader.readLine();
+			String[] tokens = line.split(" ");
+			for(int x = 0; x < tokens.length; x++)
+			{
+				System.out.print(tokens[x]);
+			}
+			for(int j = 0; j < 9; j++)
+			{
+				value = Integer.parseInt(tokens[j]);
+				board[i][j] = new cell(value);
+			}
+			System.out.println();
+		}
+
+
+
+
 	}
 
 	public void print()
 	{
+		for(int x = 0; x < 9; x ++)
+		{
+			if(x%3 == 0)
+			{
+				for(int z = 0; z < 3; z++)
+				{
+					System.out.print(" ");
+					for(int w = 0; w < 7; w++)
+					{
+						System.out.print("-");
+					}
+				}
+				System.out.println();
+			}
+			for (int y = 0; y < 9; y++)
+			{
+				if(y%3 ==0)
+				{
+					System.out.print("| ");
+				}
+				if (board[x][y].getValue() < 0)
+				{
+					System.out.print("0 ");
+				} else {
+					System.out.print(board[x][y].getValue() + " ");
+				}
+			}
+			System.out.print("|");
+			System.out.println();
+		}
+
 		for(int x = 0; x < 3; x++)
 		{
 			System.out.print(" ");
@@ -32,38 +84,6 @@ public class Sudoku{
 			}
 		}
 		System.out.println();
-
-		for(int z = 0; z < 12; z ++)
-		{
-			if((z+1)%4 == 0)
-			{
-				for(int w = 0; w < 3; w++)
-				{
-					System.out.print(" ");
-					for (int y = 0; y < 7; y++) {
-						System.out.print("-");
-					}
-				}
-			} else{
-				for (int x = 0; x < 3; x++) {
-
-					System.out.print("|");
-					for (int y = 0; y < 3; y++) {
-						System.out.print(" ");
-						if (board[x][y].getValue() < 0)
-						{
-							System.out.print("X");
-						} else {
-							System.out.print(board[x][y].getValue());
-						}
-					}
-					System.out.print(" ");
-				}
-				System.out.print("|");
-			}
-			System.out.println();
-		}
-
 	}
 
 	private class cell
@@ -71,10 +91,10 @@ public class Sudoku{
 		int value;
 		boolean done;
 
-		public cell()
+		public cell(int value)
 		{
-			value = -1;
-			done = false;
+			this.value = value;
+			done = true; //cell will only be initialized with value when setting board, value is final
 		}
 
 		public void setValue(int value)
