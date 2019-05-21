@@ -1,0 +1,25 @@
+Sudoku class
+	9x9 array of cells
+	Load() Allows user to load and checks after each addition that it is valid (n) for empty and corresponding # for number
+	LoadFromFile() uses sudoku file to load
+	Print()
+	Solve()
+	
+
+cell class
+	can be marked as "final" or "adjustable" (Done boolean)
+	
+
+ ------- ------- -------
+| n n n | n n n | n n n |
+| n n n | n n n | n n n |
+| n n n | n n n | n n n |
+ ------- ------- -------
+| n n n | n n n | n n n |
+| n n n | n n n | n n n |
+| n n n | n n n | n n n |
+ ------- ------- -------
+| n n n | n n n | n n n |
+| n n n | n n n | n n n |
+| n n n | n n n | n n n |
+ ------- ------- -------
