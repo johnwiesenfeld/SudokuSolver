@@ -29,16 +29,79 @@ public class Sudoku{
 			{
 				value = Integer.parseInt(tokens[j]);
 				board[i][j] = new cell(value);
+				if(value > 0) {board[i][j].setDone(true);}
 			}
 		}
 	}
 
-	public void solve()
+	public boolean solve()
 		{
-			//need to write
+			int row = 0;
+			int col = 0;
+			boolean safe;
+
+			while(row < 9)
+			{
+				safe = true;
+				if(!board[row][col].getDone())
+				{
+					board[row][col].setValue(board[row][col].getValue() + 1);
+					if(board[row][col].getValue() > 9)
+					{
+						board[row][col].setValue(0);
+						col--;
+						if(col < 0)
+						{
+							row--;
+							col = 8;
+						}
+						while(board[row][col].getDone())
+						{
+							col--;
+							if(col < 0)
+							{
+								row--;
+								col = 8;
+							}
+							if(row < 0)
+							{
+								return false;
+							}
+						}
+						continue;
+					}
+					if(!(col < 0))
+					{
+						safe = testRow(row, col);
+						if(safe) { safe = testCol(row,col); }
+						if(safe) { safe = testBox(row, col); }
+						if(safe)
+						{
+							col ++;
+						}
+					}
+				} else {
+					col++;
+				}
+				if(col > 8)
+				{
+					row++;
+					col = 0;
+				}
+				if(col < 0)
+				{
+					row--;
+					col = 8;
+				}
+				if(row < 0)
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
-	private boolean testCol(int row, int col)
+	public boolean testCol(int row, int col)
 		{
 			boolean pass = true;
 			for(int i = 0; i < 9; i++)
@@ -54,7 +117,7 @@ public class Sudoku{
 			return pass;
 		}
 
-	private boolean testRow(int row, int col)
+	public boolean testRow(int row, int col)
 		{
 			boolean pass = true;
 			for(int i = 0; i < 9; i++)
@@ -70,10 +133,31 @@ public class Sudoku{
 			return pass;
 		}
 
-	private boolean testBox(int row, int col)
+	public boolean testBox(int row, int col)
 		{
-			//need to write
-			return false;
+			int  testRow = 6;
+			int testCol = 6;
+			boolean pass = true;
+			if(row < 6) { testRow = 3; }
+			if(row < 3) { testRow = 0; }
+			if(col < 6) { testCol = 3; }
+			if(col < 3) { testCol = 0; }
+
+			for(int i = 0; i < 3; i++)
+			{
+				for(int j = 0; j < 3; j++)
+				{
+					if(testRow + i != row && testCol + j != col)
+					{
+						if(board[row][col].getValue() == board[testRow + i][testCol + j].getValue()
+								&& board[testRow + i][testCol + j].getValue() != 0)
+						{
+							pass = false;
+						}
+					}
+				}
+			}
+			return pass;
 		}
 
 	public void print() {
@@ -118,7 +202,7 @@ public class Sudoku{
 		public cell(int value)
 		{
 			this.value = value;
-			done = true; //cell will only be initialized with value when setting board, value is final
+			done = false; //cell will only be initialized with value when setting board, value is final
 		}
 
 		public void setValue(int value)

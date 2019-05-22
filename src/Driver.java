@@ -15,20 +15,25 @@ public class Driver {
 						System.out.println("\nUnsolved:");
 						board.print();
 						System.out.println("\nSolved:");
-						board.solve();
+						long start = System.currentTimeMillis();
+						if(board.solve())
+						{
+							board.print();
+						} else {
+							System.out.println("\nUnable to solve");
+						}
+						long stop = System.currentTimeMillis();
+						long time = stop - start;
+						System.out.print("Runtime: " + time + " milliseconds");
+
 					}
 					break;
 
 				case 2:
-					//Sudoku board = fillSudoku();
-					//solve
-					break;
-
-				case 3:
 					help();
 					break;
 
-				case 4:
+				case 3:
 					System.out.println("Exiting Program");
 					exit = true;
 					break;
@@ -43,11 +48,10 @@ public class Driver {
 	private static int menu()
 	{
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter number to choose one of the following:\n" +
+		System.out.println("\nEnter number to choose one of the following:\n" +
 				"1) Load Puzzle from file\n" +
-				"2) Enter Puzzle manually\n" +
-				"3) Help\n" +
-				"4) Quit\n");
+				"2) Help\n" +
+				"3) Quit\n");
 		prompt();
 		int input = -1;
 		try{
@@ -56,7 +60,7 @@ public class Driver {
 		{
 			System.out.print(ex + "Problem with input\n");
 		}
-		if(input < 1 || input > 4) { input = -1; }
+		if(input < 1 || input > 3) { input = -1; }
 		return input;
 	}
 
