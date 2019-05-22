@@ -4,6 +4,7 @@ Sudoku class
 	LoadFromFile() uses sudoku file to load
 	Print()
 	Solve()
+		maybe a while(row < 10) loop... then I can increment and decrement row and col without for loops and recursion...
 	
 
 cell class
