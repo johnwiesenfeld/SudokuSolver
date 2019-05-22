@@ -12,8 +12,10 @@ public class Driver {
 					Sudoku board = getSudoku();
 					if(board != null)
 					{
+						System.out.println("\nUnsolved:");
 						board.print();
-						//solve
+						System.out.println("\nSolved:");
+						board.solve();
 					}
 					break;
 

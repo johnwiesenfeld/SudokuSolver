@@ -25,47 +25,73 @@ public class Sudoku{
 		{
 			line = reader.readLine();
 			String[] tokens = line.split(" ");
-			for(int x = 0; x < tokens.length; x++)
-			{
-				System.out.print(tokens[x]);
-			}
 			for(int j = 0; j < 9; j++)
 			{
 				value = Integer.parseInt(tokens[j]);
 				board[i][j] = new cell(value);
 			}
-			System.out.println();
 		}
-
-
-
-
 	}
 
-	public void print()
-	{
-		for(int x = 0; x < 9; x ++)
+	public void solve()
 		{
-			if(x%3 == 0)
+			//need to write
+		}
+
+	private boolean testCol(int row, int col)
+		{
+			boolean pass = true;
+			for(int i = 0; i < 9; i++)
 			{
-				for(int z = 0; z < 3; z++)
+				if(i != row)
 				{
-					System.out.print(" ");
-					for(int w = 0; w < 7; w++)
+					if(board[i][col].getValue() == board[row][col].getValue() && board[i][col].getValue() != 0)
 					{
+						pass = false;
+					}
+				}
+			}
+			return pass;
+		}
+
+	private boolean testRow(int row, int col)
+		{
+			boolean pass = true;
+			for(int i = 0; i < 9; i++)
+			{
+				if(i != col)
+				{
+					if(board[row][i].getValue() == board[row][col].getValue() && board[row][i].getValue() != 0)
+					{
+						pass = false;
+					}
+				}
+			}
+			return pass;
+		}
+
+	private boolean testBox(int row, int col)
+		{
+			//need to write
+			return false;
+		}
+
+	public void print() {
+		for (int x = 0; x < 9; x++) {
+			if (x % 3 == 0) {
+				for (int z = 0; z < 3; z++) {
+					System.out.print(" ");
+					for (int w = 0; w < 7; w++) {
 						System.out.print("-");
 					}
 				}
 				System.out.println();
 			}
-			for (int y = 0; y < 9; y++)
-			{
-				if(y%3 ==0)
-				{
+			for (int y = 0; y < 9; y++) {
+				if (y % 3 == 0) {
 					System.out.print("| ");
 				}
-				if (board[x][y].getValue() < 0)
-				{
+				if (board[x][y].getValue() < 0) {
 					System.out.print("0 ");
 				} else {
 					System.out.print(board[x][y].getValue() + " ");
@@ -75,11 +101,9 @@ public class Sudoku{
 			System.out.println();
 		}
 
-		for(int x = 0; x < 3; x++)
-		{
+		for (int x = 0; x < 3; x++) {
 			System.out.print(" ");
-			for(int y = 0; y < 7; y++)
-			{
+			for (int y = 0; y < 7; y++) {
 				System.out.print("-");
 			}
 		}
